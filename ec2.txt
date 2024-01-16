@@ -1,0 +1,24 @@
+---
+- name: Create a new EC2 instance
+  hosts: localhost
+  gather_facts: False
+
+  tasks:
+
+    - name: Create an ec2 instance
+      ec2:
+         key_name: centos
+         group: my-sg  # security group name
+         instance_type: t2.micro
+         image: ami-0763cf792771fe1bd
+         wait: true
+         region: ap-south-1
+         aws_zone: ap-south-1b
+         count: 1  # default
+         count_tag:
+            Name: lohith server
+         instance_tags:
+            Name: lohith server
+         vpc_subnet_id: subnet-02a8069ba928e6d1c
+         assign_public_ip: yes
+      register: ec2
